@@ -1,3 +1,9 @@
+import { UserButton } from "@clerk/nextjs";
+
 export default function Home() {
-  return <p>This is a protected Dashboard Page</p>;
+  return (
+    <div>
+      <UserButton afterSwitchSessionUrl="/" />
+    </div>
+  );
 }
