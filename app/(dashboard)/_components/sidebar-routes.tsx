@@ -1,7 +1,8 @@
 "use client";
 
-import { Compass, Icon, icons, Layout, Sidebar } from "lucide-react";
+import { BarChart, Compass, Icon, icons, Layout, List, Sidebar } from "lucide-react";
 import { SidebarItem } from "./sidebar-item";
+import { usePathname } from "next/navigation";
 
 const guestRoutes = [
     {
@@ -16,6 +17,19 @@ const guestRoutes = [
     },
 ];
 
+const teacherRoutes = [
+    {
+        icon: List,
+        label: "Courses",
+        href: "/teacher/courses",
+    },
+    {
+        icon: BarChart,
+        label: "Analytics",
+        href: "/teacher/analytics",
+    },
+];
+
 
 // This component is responsible for rendering the sidebar routes based on the user's authentication status.
 // For now, it only renders the guest routes, but in the future, you can add logic to render different routes for authenticated users.
@@ -27,7 +41,11 @@ const guestRoutes = [
 // You can also add more routes to the guestRoutes array as needed, and you can create separate arrays for authenticated users or different user roles if necessary. The key is to keep the logic for rendering the sidebar routes centralized in this component, so that it's easy to manage and update as your application evolves.
 
 export const SidebarRoutes = () => {
-    const routes = guestRoutes;
+    const pathname = usePathname();
+
+    const isTeacherPage = pathname?.includes("/teacher");
+
+    const routes = isTeacherPage ? teacherRoutes : guestRoutes;
 
     return (
         <div className="flex flex-col w-full">
